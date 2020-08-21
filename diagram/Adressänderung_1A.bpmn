@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1yjo71i" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <bpmn:process id="Process_0f1xp8y" isExecutable="true">
+    <bpmn:exclusiveGateway id="Gateway_035i0zo">
+      <bpmn:incoming>Flow_0l0oh8s</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h53lc3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_172j70x</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_181y1ph">
+      <bpmn:incoming>Flow_0nznhum</bpmn:incoming>
+      <bpmn:outgoing>Flow_0muu5cn</bpmn:outgoing>
+      <bpmn:outgoing>Flow_116pzdo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_162wyv7" name="Adresse speichern">
+      <bpmn:incoming>Flow_0muu5cn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jef213</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_140ocnl" name="Adressdaten überprüfen">
+      <bpmn:incoming>Flow_0a8hg65</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nznhum</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1xlb4u2" name="WEF Überprufen">
+      <bpmn:incoming>Flow_0lktdqs</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l0oh8s</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1lbi557">
+      <bpmn:incoming>Flow_172j70x</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_19on84q" name="Starte Prozess Adresse mit offenem WEF geändert">
+      <bpmn:incoming>Flow_1h53lc3</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0mh0375" />
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Event_0e3pzhp" name="Neue Adress Daten">
+      <bpmn:outgoing>Flow_0a8hg65</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0c3ov21" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_14rglq3" name="Fehlerhafte Adressdaten">
+      <bpmn:incoming>Flow_116pzdo</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0juoq74" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0a8hg65" sourceRef="Event_0e3pzhp" targetRef="Activity_140ocnl" />
+    <bpmn:sequenceFlow id="Flow_0l0oh8s" sourceRef="Activity_1xlb4u2" targetRef="Gateway_035i0zo" />
+    <bpmn:sequenceFlow id="Flow_1h53lc3" name="Offener WEF Bezug vorhanden" sourceRef="Gateway_035i0zo" targetRef="Event_19on84q" />
+    <bpmn:sequenceFlow id="Flow_172j70x" name="kein WEF eingerichtet" sourceRef="Gateway_035i0zo" targetRef="Event_1lbi557" />
+    <bpmn:sequenceFlow id="Flow_0nznhum" sourceRef="Activity_140ocnl" targetRef="Gateway_181y1ph" />
+    <bpmn:sequenceFlow id="Flow_0muu5cn" name="Überprüfung ist in Ordnung" sourceRef="Gateway_181y1ph" targetRef="Activity_162wyv7" />
+    <bpmn:sequenceFlow id="Flow_116pzdo" name="Daten sind fehlerhaft" sourceRef="Gateway_181y1ph" targetRef="Event_14rglq3" />
+    <bpmn:sequenceFlow id="Flow_0jef213" sourceRef="Activity_162wyv7" targetRef="Event_165nkgi" />
+    <bpmn:endEvent id="Event_165nkgi" name="Adresse geändert">
+      <bpmn:incoming>Flow_0jef213</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1vu1lcu" />
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Event_1jdv3sq" name="Adresse geändert">
+      <bpmn:outgoing>Flow_0lktdqs</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0jwe1p6" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0lktdqs" sourceRef="Event_1jdv3sq" targetRef="Activity_1xlb4u2" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0f1xp8y">
+      <bpmndi:BPMNEdge id="Flow_0jef213_di" bpmnElement="Flow_0jef213">
+        <di:waypoint x="710" y="120" />
+        <di:waypoint x="812" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_116pzdo_di" bpmnElement="Flow_116pzdo">
+        <di:waypoint x="450" y="145" />
+        <di:waypoint x="450" y="232" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="463" y="176" width="53" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0muu5cn_di" bpmnElement="Flow_0muu5cn">
+        <di:waypoint x="475" y="120" />
+        <di:waypoint x="610" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="491" y="86" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nznhum_di" bpmnElement="Flow_0nznhum">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="425" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a8hg65_di" bpmnElement="Flow_0a8hg65">
+        <di:waypoint x="208" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l0oh8s_di" bpmnElement="Flow_0l0oh8s">
+        <di:waypoint x="950" y="300" />
+        <di:waypoint x="1025" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h53lc3_di" bpmnElement="Flow_1h53lc3">
+        <di:waypoint x="1050" y="325" />
+        <di:waypoint x="1050" y="420" />
+        <di:waypoint x="1172" y="420" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1056" y="356" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_172j70x_di" bpmnElement="Flow_172j70x">
+        <di:waypoint x="1075" y="300" />
+        <di:waypoint x="1172" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1091" y="266" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lktdqs_di" bpmnElement="Flow_0lktdqs">
+        <di:waypoint x="758" y="300" />
+        <di:waypoint x="850" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_181y1ph_di" bpmnElement="Gateway_181y1ph" isMarkerVisible="true">
+        <dc:Bounds x="425" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_162wyv7_di" bpmnElement="Activity_162wyv7">
+        <dc:Bounds x="610" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_140ocnl_di" bpmnElement="Activity_140ocnl">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0e3pzhp_di" bpmnElement="Event_0e3pzhp">
+        <dc:Bounds x="172" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="145" width="65" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14rglq3_di" bpmnElement="Event_14rglq3">
+        <dc:Bounds x="432" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="275" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_05wykis_di" bpmnElement="Event_165nkgi">
+        <dc:Bounds x="812" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="787" y="145" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_035i0zo_di" bpmnElement="Gateway_035i0zo" isMarkerVisible="true">
+        <dc:Bounds x="1025" y="275" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xlb4u2_di" bpmnElement="Activity_1xlb4u2">
+        <dc:Bounds x="850" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1lbi557_di" bpmnElement="Event_1lbi557">
+        <dc:Bounds x="1172" y="282" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_19on84q_di" bpmnElement="Event_19on84q">
+        <dc:Bounds x="1172" y="402" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1154" y="445" width="73" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jzeo16_di" bpmnElement="Event_1jdv3sq">
+        <dc:Bounds x="722" y="282" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="697" y="325" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
